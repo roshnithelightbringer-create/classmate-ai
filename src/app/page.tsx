@@ -134,7 +134,6 @@ export default function Home() {
     setStep('report')
 
     const conversation = messages
-      
       .map(m => `${m.role === 'user' ? 'Student' : 'Classmate'}: ${m.content}`)
       .join('\n\n')
 
@@ -188,39 +187,23 @@ export default function Home() {
     setIsLoading(false)
   }
 
-  // ========== SETUP SCREEN ==========
   if (step === 'setup') {
     return (
       <main className="min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-lg animate-slideUp">
-
-          {/* Header */}
           <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-3 tracking-tight">
-              Teach to Learn.
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-3 tracking-tight">Teach to Learn.</h1>
             <p className="text-[var(--text-secondary)] text-sm md:text-base max-w-sm mx-auto leading-relaxed">
-              Your AI classmate is confused.<br />
-              Teach them what you know — and discover what you don't.
+              Your AI classmate is confused.<br />Teach them what you know — and discover what you don't.
             </p>
           </div>
 
-          {/* Subject Selection */}
           <div className="mb-6">
-            <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3 block">
-              Subject
-            </label>
+            <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3 block">Subject</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {SUBJECTS.map(s => (
-                <button
-                  key={s}
-                  onClick={() => setSubject(s)}
-                  className={`p-3 rounded-xl text-center border transition-all ${
-                    subject === s
-                      ? 'border-[var(--accent)] bg-[var(--accent-glow)]'
-                      : 'border-[var(--border)] bg-[var(--bg-card)] hover:border-[var(--text-secondary)]'
-                  }`}
-                >
+                <button key={s} onClick={() => setSubject(s)}
+                  className={`p-3 rounded-xl text-center border transition-all ${subject === s ? 'border-[var(--accent)] bg-[var(--accent-glow)]' : 'border-[var(--border)] bg-[var(--bg-card)] hover:border-[var(--text-secondary)]'}`}>
                   <span className="text-xl block mb-0.5">{SUBJECT_EMOJIS[s]}</span>
                   <span className="text-xs font-medium">{SUBJECT_LABELS[s]}</span>
                 </button>
@@ -228,88 +211,53 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Topic Input */}
           <div className="mb-6">
             <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3 block">
               What topic are you studying? <span className="text-xs font-normal normal-case opacity-60">(optional)</span>
             </label>
-            <input
-              type="text"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
+            <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)}
               placeholder="e.g. Newton's Laws, Photosynthesis, Quadratic Equations..."
-              className="w-full bg-[var(--bg-input)] rounded-xl px-4 py-3 text-sm border border-[var(--border)] placeholder:text-[var(--text-secondary)]"
-            />
+              className="w-full bg-[var(--bg-input)] rounded-xl px-4 py-3 text-sm border border-[var(--border)] placeholder:text-[var(--text-secondary)]" />
           </div>
 
-          {/* Difficulty */}
           <div className="mb-8">
-            <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3 block">
-              How confused is your classmate?
-            </label>
+            <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3 block">How confused is your classmate?</label>
             <div className="flex gap-2.5">
               {DIFFICULTIES.map(d => (
-                <button
-                  key={d.value}
-                  onClick={() => setDifficulty(d.value)}
-                  className={`flex-1 py-3 rounded-xl text-sm font-medium border transition-all ${
-                    difficulty === d.value
-                      ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
-                      : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border-[var(--border)] hover:border-[var(--text-secondary)]'
-                  }`}
-                >
+                <button key={d.value} onClick={() => setDifficulty(d.value)}
+                  className={`flex-1 py-3 rounded-xl text-sm font-medium border transition-all ${difficulty === d.value ? 'bg-[var(--accent)] text-white border-[var(--accent)]' : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border-[var(--border)] hover:border-[var(--text-secondary)]'}`}>
                   {d.label}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Start Button */}
-          <button
-            onClick={startSession}
+          <button onClick={startSession}
             className="w-full py-4 rounded-2xl text-base font-semibold text-white transition-all duration-200"
-            style={{
-              background: 'linear-gradient(135deg, #6366f1, #818cf8)',
-              boxShadow: '0 4px 24px rgba(99, 102, 241, 0.3)',
-            }}
-          >
+            style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)', boxShadow: '0 4px 24px rgba(99, 102, 241, 0.3)' }}>
             Start Study Session →
           </button>
 
-          {/* Quick Mode Toggle */}
           <div className="mt-4 flex items-center justify-center gap-2">
-            <button
-              onClick={() => setQuickMode(!quickMode)}
-              className={`text-xs px-4 py-2 rounded-lg border transition-all ${
-                quickMode
-                  ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-glow)]'
-                  : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text)]'
-              }`}
-            >
+            <button onClick={() => setQuickMode(!quickMode)}
+              className={`text-xs px-4 py-2 rounded-lg border transition-all ${quickMode ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-glow)]' : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text)]'}`}>
               ⚡ Short on time?
             </button>
           </div>
 
-          {/* History Button */}
           {sessions.length > 0 && (
             <div className="mt-6 text-center">
-              <button
-                onClick={() => setShowHistory(!showHistory)}
-                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text)] underline underline-offset-2"
-              >
+              <button onClick={() => setShowHistory(!showHistory)}
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text)] underline underline-offset-2">
                 View past sessions ({sessions.length})
               </button>
               {showHistory && (
                 <div className="mt-3 glass rounded-xl p-4 max-h-48 overflow-y-auto text-left">
                   {sessions.map(s => (
                     <div key={s.id} className="flex items-center justify-between py-2 border-b border-[var(--border)] last:border-0 text-xs">
-                      <div>
-                        <span className="font-medium">{SUBJECT_EMOJIS[s.subject]} {s.topic}</span>
-                        <span className="text-[var(--text-secondary)] ml-2">— {new Date(s.date).toLocaleDateString()}</span>
-                      </div>
-                      <span className={s.score >= 60 ? 'text-[var(--success)]' : 'text-[var(--warning)]'}>
-                        {s.score}%
-                      </span>
+                      <div><span className="font-medium">{SUBJECT_EMOJIS[s.subject]} {s.topic}</span>
+                        <span className="text-[var(--text-secondary)] ml-2">— {new Date(s.date).toLocaleDateString()}</span></div>
+                      <span className={s.score >= 60 ? 'text-[var(--success)]' : 'text-[var(--warning)]'}>{s.score}%</span>
                     </div>
                   ))}
                 </div>
@@ -317,7 +265,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Empty state */}
           {sessions.length === 0 && (
             <p className="mt-6 text-xs text-center text-[var(--text-secondary)]">
               No sessions yet. Complete your first session to start tracking your progress.
@@ -328,12 +275,9 @@ export default function Home() {
     )
   }
 
-  // ========== CHAT SCREEN ==========
   if (step === 'chat') {
     return (
       <main className="min-h-screen flex flex-col">
-
-        {/* Top Bar */}
         <header className="glass sticky top-0 z-10 px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#6366f1] to-[#818cf8] flex items-center justify-center text-sm flex-shrink-0">
@@ -347,101 +291,63 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-[10px] px-2 py-1 rounded-md bg-[var(--bg-card)] text-[var(--text-secondary)] uppercase tracking-wider hidden sm:block">
-              {difficulty}
-            </span>
+            <span className="text-[10px] px-2 py-1 rounded-md bg-[var(--bg-card)] text-[var(--text-secondary)] uppercase tracking-wider hidden sm:block">{difficulty}</span>
             <span className="text-[10px] px-2 py-1 rounded-md bg-[var(--accent-glow)] text-[var(--accent)] uppercase tracking-wider hidden sm:block">
               {quickMode ? '⚡ Quick' : `${messages.length} msgs`}
             </span>
-            <button
-              onClick={endSession}
+            <button onClick={endSession}
               className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-              style={{ background: 'rgba(248, 113, 113, 0.12)', color: '#f87171', border: '1px solid rgba(248, 113, 113, 0.2)' }}
-            >
+              style={{ background: 'rgba(248, 113, 113, 0.12)', color: '#f87171', border: '1px solid rgba(248, 113, 113, 0.2)' }}>
               End
             </button>
           </div>
         </header>
 
-        {/* Status Indicator */}
         <div className="px-4 py-2 text-center">
           <span className="text-xs text-[var(--text-secondary)]">
             {isLoading ? '🤔 Your classmate is thinking...' : messages.length <= 1 ? '😵‍💫 Your classmate is confused. Start teaching!' : '🧠 Your classmate is learning from you'}
           </span>
         </div>
 
-        {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 max-w-2xl mx-auto w-full">
           {messages.map(msg => (
-            <div
-              key={msg.id}
-              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
-            >
-              <div
-                className={`max-w-[88%] md:max-w-[75%] px-4 py-3 text-sm leading-relaxed ${
-                  msg.role === 'user' ? 'bubble-user' : 'bubble-classmate'
-                }`}
-              >
+            <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
+              <div className={`max-w-[88%] md:max-w-[75%] px-4 py-3 text-sm leading-relaxed ${msg.role === 'user' ? 'bubble-user' : 'bubble-classmate'}`}>
                 {msg.content}
               </div>
             </div>
           ))}
 
-          {/* Typing */}
           {isLoading && (
             <div className="flex justify-start animate-fadeIn">
               <div className="bubble-classmate px-4 py-3 flex gap-1.5">
-                <span className="typing-dot" />
-                <span className="typing-dot" />
-                <span className="typing-dot" />
+                <span className="typing-dot" /><span className="typing-dot" /><span className="typing-dot" />
               </div>
             </div>
           )}
 
-          {/* Copy-paste warning */}
           {showWarning && (
             <div className="animate-fadeIn">
-              <div className="bubble-classmate px-4 py-3 text-sm leading-relaxed">
-                {warningText}
-              </div>
-              <button
-                onClick={retryWarning}
-                className="mt-2 text-xs text-[var(--accent)] hover:underline"
-              >
-                OK, let me rewrite it →
-              </button>
+              <div className="bubble-classmate px-4 py-3 text-sm leading-relaxed">{warningText}</div>
+              <button onClick={retryWarning} className="mt-2 text-xs text-[var(--accent)] hover:underline">OK, let me rewrite it →</button>
             </div>
           )}
         </div>
 
-        {/* Input */}
         <div className="glass px-4 py-4 max-w-2xl mx-auto w-full rounded-t-2xl">
           <div className="flex gap-3 items-end">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault()
-                  if (!showWarning) sendMessage()
-                }
-              }}
-              placeholder="Explain it in your own words..."
-              rows={1}
+            <textarea value={input} onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!showWarning) sendMessage() } }}
+              placeholder="Explain it in your own words..." rows={1}
               className="flex-1 bg-[var(--bg-input)] rounded-xl px-4 py-3 text-sm resize-none border border-[var(--border)] placeholder:text-[var(--text-secondary)] max-h-[160px]"
-              disabled={isLoading || showWarning}
-            />
-            <button
-              onClick={() => { if (!showWarning) sendMessage() }}
+              disabled={isLoading || showWarning} />
+            <button onClick={() => { if (!showWarning) sendMessage() }}
               disabled={!input.trim() || isLoading || showWarning}
               className="px-4 py-3 rounded-xl text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               style={{
-                background: input.trim() && !isLoading && !showWarning
-                  ? 'linear-gradient(135deg, #6366f1, #818cf8)'
-                  : 'var(--bg-input)',
+                background: input.trim() && !isLoading && !showWarning ? 'linear-gradient(135deg, #6366f1, #818cf8)' : 'var(--bg-input)',
                 color: input.trim() && !isLoading && !showWarning ? 'white' : 'var(--text-secondary)',
-              }}
-            >
+              }}>
               Send
             </button>
           </div>
@@ -453,22 +359,17 @@ export default function Home() {
     )
   }
 
-  // ========== REPORT SCREEN ==========
   return (
     <main className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-lg animate-slideUp">
-
         {evaluating ? (
           <div className="text-center py-16">
             <div className="text-5xl mb-6 animate-fadeIn">🤔</div>
             <h2 className="text-xl font-semibold gradient-text mb-2">Analyzing your session...</h2>
-            <p className="text-sm text-[var(--text-secondary)]">
-              Your classmate is thinking about what you taught them
-            </p>
+            <p className="text-sm text-[var(--text-secondary)]">Your classmate is thinking about what you taught them</p>
           </div>
         ) : evaluation ? (
           <>
-            {/* Score */}
             <div className="text-center mb-8">
               <div className="text-4xl mb-3">{evaluation.overallScore >= 70 ? '🎉' : evaluation.overallScore >= 40 ? '👍' : '💪'}</div>
               <h1 className="text-2xl md:text-3xl font-bold gradient-text mb-1">Your Understanding Report</h1>
@@ -476,135 +377,87 @@ export default function Home() {
             </div>
 
             <div className="glass rounded-2xl p-6 mb-6 text-center">
-              <div
-                className="text-4xl font-bold"
-                style={{
-                  color: evaluation.overallScore >= 70 ? 'var(--success)' : evaluation.overallScore >= 40 ? 'var(--warning)' : 'var(--error)',
-                }}
-              >
+              <div className="text-4xl font-bold"
+                style={{ color: evaluation.overallScore >= 70 ? 'var(--success)' : evaluation.overallScore >= 40 ? 'var(--warning)' : 'var(--error)' }}>
                 {evaluation.overallScore}%
               </div>
               <div className="text-xs text-[var(--text-secondary)] mt-1">Overall Understanding</div>
             </div>
 
-            {/* Understood */}
             {evaluation.understood.length > 0 && (
               <div className="glass rounded-2xl p-5 mb-4">
                 <h3 className="text-xs font-semibold text-[var(--success)] uppercase tracking-wider mb-3">✅ You understand</h3>
                 <div className="flex flex-wrap gap-2">
                   {evaluation.understood.map((item, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1.5 rounded-lg text-xs"
-                      style={{ background: 'rgba(52, 211, 153, 0.12)', color: '#34d399' }}
-                    >
-                      {item}
-                    </span>
+                    <span key={i} className="px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(52, 211, 153, 0.12)', color: '#34d399' }}>{item}</span>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Needs Review */}
             {evaluation.struggled.length > 0 && (
               <div className="glass rounded-2xl p-5 mb-4">
                 <h3 className="text-xs font-semibold text-[var(--warning)] uppercase tracking-wider mb-3">⚠️ Needs review</h3>
                 <div className="flex flex-wrap gap-2">
                   {evaluation.struggled.map((item, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1.5 rounded-lg text-xs"
-                      style={{ background: 'rgba(251, 191, 36, 0.12)', color: '#fbbf24' }}
-                    >
-                      {item}
-                    </span>
+                    <span key={i} className="px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(251, 191, 36, 0.12)', color: '#fbbf24' }}>{item}</span>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Weak Spots */}
             {evaluation.weakSpots.length > 0 && (
               <div className="glass rounded-2xl p-5 mb-4">
                 <h3 className="text-xs font-semibold text-[var(--error)] uppercase tracking-wider mb-3">🎯 Focus on these</h3>
-                <ul className="space-y-2">
-                  {evaluation.weakSpots.map((spot, i) => (
-                    <li key={i} className="text-xs flex items-start gap-2">
-                      <span className="text-[var(--error)] mt-0.5">•</span>
-                      <span>{spot}</span>
-                    </li>
-                  ))}
-                </ul>
+                <ul className="space-y-2">{evaluation.weakSpots.map((spot, i) => (
+                  <li key={i} className="text-xs flex items-start gap-2"><span className="text-[var(--error)] mt-0.5">•</span><span>{spot}</span></li>
+                ))}</ul>
               </div>
             )}
 
-            {/* Misconceptions */}
             {evaluation.misconceptions.length > 0 && (
               <div className="glass rounded-2xl p-5 mb-4">
                 <h3 className="text-xs font-semibold text-[var(--error)] uppercase tracking-wider mb-3">🧠 Possible misconceptions</h3>
-                <div className="space-y-3">
-                  {evaluation.misconceptions.map((mc, i) => (
-                    <div key={i} className="p-3 rounded-xl" style={{ background: 'rgba(248, 113, 113, 0.08)' }}>
-                      <div className="text-xs font-semibold text-[var(--error)] mb-1">{mc.topic}</div>
-                      <div className="text-[11px] mb-1"><span className="opacity-60">You said:</span> {mc.studentSaid}</div>
-                      <div className="text-[11px]" style={{ color: 'var(--success)' }}>✓ {mc.correction}</div>
-                    </div>
-                  ))}
-                </div>
+                <div className="space-y-3">{evaluation.misconceptions.map((mc, i) => (
+                  <div key={i} className="p-3 rounded-xl" style={{ background: 'rgba(248, 113, 113, 0.08)' }}>
+                    <div className="text-xs font-semibold text-[var(--error)] mb-1">{mc.topic}</div>
+                    <div className="text-[11px] mb-1"><span className="opacity-60">You said:</span> {mc.studentSaid}</div>
+                    <div className="text-[11px]" style={{ color: 'var(--success)' }}>✓ {mc.correction}</div>
+                  </div>
+                ))}</div>
               </div>
             )}
 
-            {/* Suggestions */}
             {evaluation.suggestions.length > 0 && (
               <div className="glass rounded-2xl p-5 mb-8">
                 <h3 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-3">💡 What to do next</h3>
-                <ul className="space-y-2">
-                  {evaluation.suggestions.map((s, i) => (
-                    <li key={i} className="text-xs flex items-start gap-2">
-                      <span className="text-[var(--accent)] mt-0.5">→</span>
-                      <span>{s}</span>
-                    </li>
-                  ))}
-                </ul>
+                <ul className="space-y-2">{evaluation.suggestions.map((s, i) => (
+                  <li key={i} className="text-xs flex items-start gap-2"><span className="text-[var(--accent)] mt-0.5">→</span><span>{s}</span></li>
+                ))}</ul>
               </div>
             )}
 
-            {/* Actions */}
             <div className="flex gap-3">
-              <button
-                onClick={resetSession}
+              <button onClick={resetSession}
                 className="flex-1 py-3.5 rounded-xl text-sm font-medium transition-all"
-                style={{
-                  background: 'var(--bg-card)',
-                  color: 'var(--text)',
-                  border: '1px solid var(--border)',
-                }}
-              >
+                style={{ background: 'var(--bg-card)', color: 'var(--text)', border: '1px solid var(--border)' }}>
                 Study Something Else
               </button>
-              <button
-                onClick={continueTeaching}
+              <button onClick={continueTeaching}
                 className="flex-1 py-3.5 rounded-xl text-sm font-medium text-white transition-all"
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1, #818cf8)',
-                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.25)',
-                }}
-              >
+                style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)', boxShadow: '0 4px 20px rgba(99, 102, 241, 0.25)' }}>
                 Keep Teaching
               </button>
             </div>
           </>
         ) : (
-          /* Error state */
           <div className="text-center py-16">
             <div className="text-5xl mb-6">😕</div>
             <h2 className="text-xl font-semibold mb-2">Couldn't complete the analysis</h2>
             <p className="text-sm text-[var(--text-secondary)] mb-6">Your conversation is still saved though!</p>
-            <button
-              onClick={resetSession}
+            <button onClick={resetSession}
               className="px-6 py-3 rounded-xl text-sm font-medium text-white"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)' }}
-            >
+              style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)' }}>
               Start Over
             </button>
           </div>
